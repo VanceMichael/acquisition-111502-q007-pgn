@@ -1,0 +1,11 @@
+{
+  "/files/games.pgn": {
+    "file": "games.pgn",
+    "mediaType": "application/octet-stream",
+    "partialFile": "games.pgn.partial"
+  },
+  "/deliveries": {
+    "file": "delivery.json",
+    "mediaType": "application/json"
+  }
+}

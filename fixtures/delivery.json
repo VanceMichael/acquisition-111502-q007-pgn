@@ -1,0 +1,15 @@
+{
+  "deliveryId": "delivery-1",
+  "revision": "r1",
+  "roots": [
+    {
+      "href": "/files/games.pgn"
+    }
+  ],
+  "resources": [
+    {
+      "href": "/files/games.pgn",
+      "name": "games.pgn"
+    }
+  ]
+}

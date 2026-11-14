@@ -1,0 +1,29 @@
+[
+  {
+    "kind": "move",
+    "value": {
+      "game": "g1",
+      "branch": "main",
+      "ply": 3,
+      "san": "Nf3"
+    }
+  },
+  {
+    "kind": "move",
+    "value": {
+      "game": "g1",
+      "branch": "main/2w:1",
+      "ply": 3,
+      "san": "Bc4"
+    }
+  },
+  {
+    "kind": "move",
+    "value": {
+      "game": "g2",
+      "branch": "main",
+      "ply": 1,
+      "san": "Kf3"
+    }
+  }
+]
