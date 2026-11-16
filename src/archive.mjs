@@ -121,6 +121,31 @@ export class Archive {
     });
   }
 
+  // 自动接入写回：记录按 kind+key 同键不可变，问题按内容去重，重复领取保持幂等。
+  async applyInterpretation(collectionId, interpretation) {
+    identifier(collectionId);
+    return this.serialized(async () => {
+      const collection = await this.collection(collectionId);
+      for (const record of interpretation.records || []) {
+        const match = collection.records.find(existing => existing.kind === record.kind && existing.key === record.key);
+        if (match) {
+          if (JSON.stringify(match) !== JSON.stringify(record)) {
+            throw Object.assign(new Error('record_identity_conflict'), { status: 409 });
+          }
+        } else {
+          collection.records.push(record);
+        }
+      }
+      for (const issue of interpretation.issues || []) {
+        if (!collection.issues.some(existing => JSON.stringify(existing) === JSON.stringify(issue))) {
+          collection.issues.push(issue);
+        }
+      }
+      await this.saveJson(join(this.directory, 'collections', collectionId + '.json'), collection);
+      return collection;
+    });
+  }
+
   async list() {
     return (await readdir(join(this.directory, 'collections'))).filter(name => name.endsWith('.json')).map(name => name.slice(0, -5));
   }
